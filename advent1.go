@@ -1,37 +1,37 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-	"bufio"
 	"strconv"
 )
 
-func getData () []int {
+func getData() []int {
 	var array []int
 	input := bufio.NewScanner(os.Stdin)
-	
-	for input.Scan () {
+
+	for input.Scan() {
 		value, _ := strconv.Atoi(input.Text())
 		array = append(array, value)
 	}
 	return array
 }
 
-func partOne (list []int) int {
+func partOne(list []int) int {
 	end_sum := 0
-	for _, x := range(list) {
+	for _, x := range list {
 		end_sum += x
 	}
 	return end_sum
 }
 
-func partTwo (list []int) int {
+func partTwo(list []int) int {
 	a := 0
-	freqs := make(map[int]string)
+	freqs := make(map[int]int)
 	for i := 0; i < len(list); i++ {
-		freqs[a] = ""
-		a+=list[i]
+		freqs[a] = i
+		a += list[i]
 		if _, ok := freqs[a]; ok {
 			return a
 		}
@@ -41,7 +41,8 @@ func partTwo (list []int) int {
 	}
 	return 0
 }
-func main () {
+
+func main() {
 	data := getData()
 	fmt.Println(partOne(data))
 	fmt.Println(partTwo(data))
